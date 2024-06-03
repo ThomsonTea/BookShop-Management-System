@@ -4,7 +4,9 @@
 
 #include "Merchant.h"
 #include "Book.h"
-
+//ahhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+//ahhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+//ahhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
 void merchantMainPage()
 {
 	bool merchantQuit = false;
