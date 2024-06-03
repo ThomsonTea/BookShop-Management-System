@@ -14,7 +14,6 @@ int main()
     do
     {
         char site;
-
         cout << "=========================================" << endl;
         cout << "       BOOK SHOP MANAGEMENT SYSTEM       " << endl;
         cout << "=========================================" << endl;

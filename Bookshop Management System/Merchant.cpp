@@ -7,6 +7,7 @@ void merchantMainPage()
 	bool merchantQuit = false;
 
 	do {
+		system("cls");
 		char action;
 		std::cout << "==============================" << std::endl;
 		std::cout << "          MERCHANT            " << std::endl;

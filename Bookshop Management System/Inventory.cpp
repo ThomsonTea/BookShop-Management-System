@@ -5,7 +5,7 @@
 void inventoryMainPage() 
 {
 	bool inventoryQuit = false;
-
+	Book book;
 	do {
 		char action;
 		std::cout << "==============================" << std::endl;
@@ -26,7 +26,7 @@ void inventoryMainPage()
 			case 'a':
 				std::cout << "insert" << std::endl;
 				system("cls");
-				//insertBooks();
+				book.addBook();
 				break;
 			case 'B':
 			case 'b':
