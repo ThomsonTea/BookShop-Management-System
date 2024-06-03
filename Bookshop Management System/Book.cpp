@@ -1,6 +1,7 @@
 #include <iostream>
 #include <thread>
 #include <chrono>
+
 #include "Book.h"
 
 Book::Book() 
@@ -43,9 +44,10 @@ void Book::addBook()
     int newBookQuantity;
     bool endinsert = false;
 
+    int numberNewBooks = 0;
     do 
     {
-        int numberNewBooks = 0;
+        system("cls");
         char addingAction;
         std::cout << "==========================================" << std::endl;
         std::cout << "Please key in the infomations of new Books" << std::endl;
@@ -69,17 +71,19 @@ void Book::addBook()
         std::cout << "The number of the books to be added is " << numberNewBooks << std::endl;
         
         std::cout << "=============================================" << std::endl;
-        std::cout << "Please choose your next action" << std::endl;
-        std::cout << "\n1. Add Next";
+        std::cout << "\n\n1. Add Next";
         std::cout << "\n2. Undo";
-        std::cout << "\n0. Finish";
-        
+        std::cout << "\n0. Finish" << std::endl;
+
+        std::cout << "Please choose your next action: ";
+
         std::cin >> addingAction;
 
         switch (addingAction)
         {
         case '1':
-            std::cout << "Preparing for the next books..." << std::endl;
+            std::cout << "\nPreparing for the next books..." << std::endl;
+            this_thread::sleep_for(chrono::milliseconds(500));
             break;
         case '2':
             if (numberNewBooks != 0)
@@ -88,17 +92,20 @@ void Book::addBook()
             }
             else
             {
-                std::cout << "There doesn't have any books in the lists" << std::endl;
+                std::cout << "\nThere doesn't have any books in the lists" << std::endl;
+                this_thread::sleep_for(chrono::seconds(1));
             }
             break;
         case '0':
-            std::cout << "Inserting the books into inventory..." << std::endl;
+            std::cout << "\nInserting the books into inventory..." << std::endl;
+            this_thread::sleep_for(chrono::milliseconds(500));
             std::cout << "Insert completed!" << std::endl;
 
             endinsert = true;
             break;
         default:
-            std::cout << "Invalid input, please try again..." << std::endl;
+            std::cout << "\nInvalid input, please try again..." << std::endl;
+            this_thread::sleep_for(chrono::milliseconds(500));
             break;
         }
 

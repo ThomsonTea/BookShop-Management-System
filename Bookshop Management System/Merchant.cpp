@@ -1,4 +1,7 @@
 #include <iostream>
+#include <chrono>
+#include <thread>
+
 #include "Merchant.h"
 #include "Book.h"
 
@@ -41,6 +44,7 @@ void merchantMainPage()
 			default:
 				system("cls");
 				std::cout << "\nInvalid Input, please try again..." << std::endl;
+				this_thread::sleep_for(chrono::milliseconds(500));
 				break;
 		}
 	} while (!merchantQuit);

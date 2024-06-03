@@ -1,4 +1,7 @@
 #include <iostream>
+#include <chrono>
+#include <thread>
+
 #include "Inventory.h"
 #include "Book.h"
 
@@ -11,9 +14,10 @@ void inventoryMainPage()
 		std::cout << "==============================" << std::endl;
 		std::cout << "          INVENTORY           " << std::endl;
 		std::cout << "==============================" << std::endl;
-		std::cout << "A. Insert Books" << std::endl;
-		std::cout << "B. Edit Books" << std::endl;
-		std::cout << "C. Delete Books" << std::endl;
+		std::cout << "A. Show Books" << std::endl;
+		std::cout << "B. Insert Books" << std::endl;
+		std::cout << "C. Edit Books" << std::endl;
+		std::cout << "D. Delete Books" << std::endl;
 		std::cout << "0. Exit" << std::endl;
 		std::cout << "==============================" << std::endl;
 
@@ -24,19 +28,23 @@ void inventoryMainPage()
 		{
 			case 'A':
 			case 'a':
-				std::cout << "insert" << std::endl;
+				std::cout << "Show" << std::endl;
 				system("cls");
-				book.addBook();
 				break;
 			case 'B':
 			case 'b':
-				std::cout << "Edit" << std::endl;
-				system("cls");
-				//modifyBooks();
+				std::cout << "Insert" << std::endl;
+				book.addBook();
 				break;
 			case 'C':
 			case 'c':
-				std::cout << "delete" << std::endl;
+				std::cout << "Edit" << std::endl;
+				system("cls");
+				//editBooks();
+				break;
+			case 'D':
+			case 'd':
+				std::cout << "Delete" << std::endl;
 				system("cls");
 				//deleteBooks();
 				break;
@@ -46,6 +54,7 @@ void inventoryMainPage()
 				break;
 			default:
 				std::cout << "\nInvalid Input, please try again..." << std::endl;
+				this_thread::sleep_for(chrono::milliseconds(500));
 				break;
 		}
 	} while (!inventoryQuit);
