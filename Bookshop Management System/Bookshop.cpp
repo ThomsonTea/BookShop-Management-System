@@ -5,8 +5,7 @@
 #include "Inventory.h"
 #include "Merchant.h"
 using namespace std;
-//asdsadasdadsa
-//asdasdasdasdas
+
 int main()
 {
     bool quit = false;
