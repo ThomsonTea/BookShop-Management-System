@@ -2,28 +2,32 @@
 #define BOOK
 
 #include <string>
+#include <iostream>
 
-class BOOK
+class Book
 {
 public:
-	void searchBook();
-	void addBook();
-	void deleteBook();
-	void modifyBook();
+    Book();
+    ~Book();
+    void searchBook();
+    void addBook();
+    void deleteBook();
+    void modifyBook();
 
 private:
-	class NODE {
-		std::string title;
-		std::string author;
-		int price;
-		std::string ISBN[14];
+    class NODE {
+    public:
+        std::string title;
+        std::string author;
+        int price;
+        std::string ISBN[14];
 
-		NODE* link;
-	};
+        NODE* link;
+    };
 
-	NODE* pHead;
-	NODE* pCurr;
-	int numItem;
+    NODE* pHead;
+    NODE* pCurr;
+    int numItem;
 };
-#endif
 
+#endif
