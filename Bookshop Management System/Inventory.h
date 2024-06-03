@@ -2,7 +2,5 @@
 #ifndef INVENTORY_H
 #define INVENTORY_H
 
-void inventoryMainPage()
-
-;
+void inventoryMainPage();
 #endif // INVENTORY_H
