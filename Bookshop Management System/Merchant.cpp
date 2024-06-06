@@ -50,4 +50,5 @@ void merchantMainPage()
 			break;
 		}
 	} while (!merchantQuit);
+
 }
