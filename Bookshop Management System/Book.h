@@ -17,18 +17,20 @@ public:
     void modifyBook();
     bool empty();
     int getNumberOfBooks();
+    void printOutFunction();
+    void displayInventory();
 
 private:
     class NODE {
-    public:
-        string title;
-        string author;
-        string ISBN;
-        double price;
-        int quantity;
+     public:
+            string title;
+            string author;
+            string ISBN;
+            double price;
+            int quantity;
 
-        NODE* next;
-    };
+            NODE* next;
+        };
 
     NODE* pHead;
     NODE* pCurr;

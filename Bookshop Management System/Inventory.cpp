@@ -29,7 +29,10 @@ void inventoryMainPage()
         case 'A':
         case 'a':
             std::cout << "Show" << std::endl;
+            
             system("cls");
+            book.displayInventory();
+
             break;
         case 'B':
         case 'b':
@@ -59,6 +62,31 @@ void inventoryMainPage()
         }
     } while (!inventoryQuit);
 
+}
+
+//display inventory
+void Book::displayInventory()
+{
+    NODE* current = top;
+    if (current == nullptr) {
+        std::cout << "The inventory is empty." << std::endl;
+        return;
+
+    }
+    std::cout << "Book Inventory:" << endl;
+    std::cout << "=========================" << endl;
+    int bookNumber = 1;
+    while (current != nullptr) {
+        std::cout << "Book " << bookNumber << ":" << std::endl;
+        std::cout << "Title: " << current->title << std::endl;
+        std::cout << "Author: " << current->author << std::endl;
+        std::cout << "ISBN: " << current->ISBN << std::endl;
+        std::cout << "Price: $" << current->price << std::endl;
+        std::cout << "Quantity: " << current->quantity << std::endl;
+        std::cout << "---------------------------" << std::endl;
+        current = current->next;
+        bookNumber++;
+    }
 }
 
 void Book::addBook()
@@ -137,4 +165,6 @@ void Book::addBook()
 
 
     } while (!endinsert);
+
+    
 }
