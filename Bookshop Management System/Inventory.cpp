@@ -4,6 +4,7 @@
 
 #include "Inventory.h"
 #include "Book.h"
+#include <iomanip>
 
 void inventoryMainPage()
 {
@@ -67,8 +68,8 @@ void inventoryMainPage()
 //display inventory
 void Book::displayInventory()
 {
-    NODE* current = top;
-    if (current == nullptr) {
+    NODE* pCurr = top;
+    if (pCurr == nullptr) {
         std::cout << "The inventory is empty." << std::endl;
         return;
 
@@ -76,15 +77,20 @@ void Book::displayInventory()
     std::cout << "Book Inventory:" << endl;
     std::cout << "=========================" << endl;
     int bookNumber = 1;
-    while (current != nullptr) {
+    
+    while (pCurr != nullptr) {
         std::cout << "Book " << bookNumber << ":" << std::endl;
-        std::cout << "Title: " << current->title << std::endl;
-        std::cout << "Author: " << current->author << std::endl;
-        std::cout << "ISBN: " << current->ISBN << std::endl;
-        std::cout << "Price: $" << current->price << std::endl;
-        std::cout << "Quantity: " << current->quantity << std::endl;
+        std::cout << "Title: " << pCurr->title << std::endl;
+        std::cout << "Author: " << pCurr->author << std::endl;
+        std::cout << "ISBN: " << pCurr->ISBN << std::endl;
+        std::cout << "Price: $" << pCurr->price << std::endl;
+        std::cout << "Quantity: " << pCurr->quantity << std::endl;
         std::cout << "---------------------------" << std::endl;
-        current = current->next;
+       /* for (int x = 0; x <= 10; x++) {
+            std::cout << "\n|";
+            std::cout << std::setw(5) << 
+        }*/
+        pCurr = pCurr->next;
         bookNumber++;
     }
 }
@@ -104,7 +110,7 @@ void Book::addBook()
         system("cls");
         char addingAction;
         std::cout << "==========================================" << std::endl;
-        std::cout << "Please key in the infomations of new Books" << std::endl;
+        std::cout << "Please key in the informations of new Books" << std::endl;
         std::cout << "==========================================" << std::endl;
         std::cout << "\nBookName: ";
         std::cin >> newBookTitle;

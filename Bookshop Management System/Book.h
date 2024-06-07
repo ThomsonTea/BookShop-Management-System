@@ -3,6 +3,8 @@
 
 #include <string>
 #include <iostream>
+
+
 using namespace std;
 
 class Book
@@ -10,7 +12,7 @@ class Book
 public:
     Book();
     ~Book();
-    void searchBook();
+    void searchBook(string& searchTitle);
     void push(string&, string&, string&, double&, int&);
     void addBook();
     void deleteBook();
