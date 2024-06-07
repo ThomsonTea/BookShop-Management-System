@@ -3,7 +3,7 @@
 #include <chrono>
 #include <iomanip>
 #include "Book.h"
-
+#include "limits"
 
 Book::Book()
 {
@@ -37,22 +37,30 @@ void Book::push(string& bookTitle, string& bookAuthor, string& bookIsbn, double&
 
     numItem++;
 }
-void Book::searchBook(string& searchTitle) {
+
+
+void Book::searchBook() {
     NODE* pCurr = pHead;
+    string searchTitle;
+    cout << "Enter the title of the book to search: ";
+    cin >> searchTitle;
+    //cin.ignore();    // To clear the newline character from the buffer
+    getline(cin, searchTitle);
+
     while (pCurr) {
         if (pCurr->title == searchTitle) {
             cout << "Book found:" << endl;
             cout << "Title: " << pCurr->title << endl;
             cout << "Author: " << pCurr->author << endl;
             cout << "ISBN: " << pCurr->ISBN << endl;
-            cout << "Price: $" << fixed << setprecision(2) << pCurr->price << endl;
+            cout << "Price: $" << pCurr->price << endl;
             cout << "Quantity: " << pCurr->quantity << endl;
             cout << "---------------------------" << endl;
             return;
         }
         pCurr = pCurr->next;
     }
-    cout << "Book not found." << endl;
+    //cout << "Book not found." << endl;
 }
 
 /*void Book::printOutFunction()

@@ -12,7 +12,7 @@ class Book
 public:
     Book();
     ~Book();
-    void searchBook(string& searchTitle);
+    void searchBook();
     void push(string&, string&, string&, double&, int&);
     void addBook();
     void deleteBook();
@@ -30,6 +30,7 @@ private:
             string ISBN;
             double price;
             int quantity;
+            
 
             NODE* next;
         };

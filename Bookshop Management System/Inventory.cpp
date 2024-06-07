@@ -19,6 +19,7 @@ void inventoryMainPage()
         std::cout << "B. Insert Books" << std::endl;
         std::cout << "C. Edit Books" << std::endl;
         std::cout << "D. Delete Books" << std::endl;
+        std::cout << "E. Search for Books" << std::endl;
         std::cout << "0. Exit" << std::endl;
         std::cout << "==============================" << std::endl;
 
@@ -51,6 +52,27 @@ void inventoryMainPage()
             std::cout << "Delete" << std::endl;
             system("cls");
             //deleteBooks();
+            break;
+        case 'E':
+        case 'e':
+            std::cout << "Search" << std::endl;
+            system("cls");
+            {
+                bool searchAgain = false;
+                do {
+                    book.searchBook();
+                    char searchOption;
+                    cout << "Do you want to search for another book? (Y/N): ";
+                    cin >> searchOption;
+                    while (searchOption != 'Y' && searchOption != 'y' && searchOption != 'N' && searchOption != 'n') {
+                        cout << "Invalid input. Please enter 'Y' or 'N': ";
+                        cin >> searchOption;
+                    }
+                    searchAgain = (searchOption == 'Y' || searchOption == 'y');
+                } while (searchAgain);
+                
+
+            }
             break;
         case '0':
             inventoryQuit = true;
