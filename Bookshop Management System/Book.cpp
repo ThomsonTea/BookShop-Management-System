@@ -4,7 +4,7 @@
 #include <iomanip>
 #include "Book.h"
 #include "limits"
-
+#include "algorithm"
 Book::Book()
 {
     pHead = nullptr;
@@ -37,18 +37,26 @@ void Book::push(string& bookTitle, string& bookAuthor, string& bookIsbn, double&
 
     numItem++;
 }
+string trim(const string& str) {
+    size_t first = str.find_first_not_of(' ');
+    size_t last = str.find_last_not_of(' ');
+    return str.substr(first, (last - first + 1));
+}
 
 
 void Book::searchBook() {
-    NODE* pCurr = pHead;
+    NODE* pCurr = top;
     string searchTitle;
     cout << "Enter the title of the book to search: ";
-    cin >> searchTitle;
-    //cin.ignore();    // To clear the newline character from the buffer
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');    // To clear the newline character from the buffer
     getline(cin, searchTitle);
+    searchTitle = trim(searchTitle);
+    transform(searchTitle.begin(), searchTitle.end(), searchTitle.begin(), ::tolower);
 
     while (pCurr) {
-        if (pCurr->title == searchTitle) {
+        string storedTitle = trim(pCurr->title);
+        transform(storedTitle.begin(), storedTitle.end(), storedTitle.begin(), ::tolower);
+        if (storedTitle == searchTitle) {
             cout << "Book found:" << endl;
             cout << "Title: " << pCurr->title << endl;
             cout << "Author: " << pCurr->author << endl;
@@ -60,7 +68,7 @@ void Book::searchBook() {
         }
         pCurr = pCurr->next;
     }
-    //cout << "Book not found." << endl;
+    cout << "Book not found." << endl;
 }
 
 /*void Book::printOutFunction()

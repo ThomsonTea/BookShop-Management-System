@@ -90,6 +90,7 @@ void inventoryMainPage()
 //display inventory
 void Book::displayInventory()
 {
+    system("cls");
     NODE* pCurr = top;
     if (pCurr == nullptr) {
         std::cout << "The inventory is empty." << std::endl;
@@ -105,7 +106,7 @@ void Book::displayInventory()
         std::cout << "Title: " << pCurr->title << std::endl;
         std::cout << "Author: " << pCurr->author << std::endl;
         std::cout << "ISBN: " << pCurr->ISBN << std::endl;
-        std::cout << "Price: $" << pCurr->price << std::endl;
+        std::cout << "Price: RM" << pCurr->price << std::endl;
         std::cout << "Quantity: " << pCurr->quantity << std::endl;
         std::cout << "---------------------------" << std::endl;
        /* for (int x = 0; x <= 10; x++) {
@@ -189,6 +190,7 @@ void Book::addBook()
             std::cout << "\nInvalid input, please try again..." << std::endl;
             this_thread::sleep_for(chrono::milliseconds(500));
             break;
+            
         }
 
 
