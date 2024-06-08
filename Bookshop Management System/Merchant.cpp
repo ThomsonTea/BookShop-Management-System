@@ -52,3 +52,8 @@ void merchantMainPage()
 	} while (!merchantQuit);
 
 }
+
+/*void::viewsales()
+{
+
+}*/

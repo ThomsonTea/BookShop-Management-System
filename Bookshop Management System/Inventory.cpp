@@ -51,7 +51,23 @@ void inventoryMainPage()
         case 'd':
             std::cout << "Delete" << std::endl;
             system("cls");
-            //deleteBooks();
+            {
+                bool deleteAgain = false;
+                do {
+                    book.deleteBook();
+                    char deleteOption;
+                    cout << "Do you want to delete for another book? (Y/N): ";
+                    cin >> deleteOption;
+                    while (deleteOption != 'Y' && deleteOption != 'y' && deleteOption != 'N' && deleteOption != 'n') {
+                        cout << "Invalid input. Please enter 'Y' or 'N': ";
+                        cin >> deleteOption;
+                    }
+                    deleteAgain = (deleteOption == 'Y' || deleteOption == 'y');
+                } while (deleteAgain);
+
+
+            }
+            //book.deleteBook();
             break;
         case 'E':
         case 'e':
@@ -197,4 +213,10 @@ void Book::addBook()
     } while (!endinsert);
 
     
+}
+
+void Book::deleteBook() {
+    top = top->next;
+    numItem--;
+    std::cout << "Latest Book is deleted" << std::endl;
 }
