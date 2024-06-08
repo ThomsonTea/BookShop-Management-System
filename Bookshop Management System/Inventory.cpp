@@ -28,7 +28,38 @@ void inventoryMainPage()
         {
         case 'A':
         case 'a':
-            std::cout << "Show" << std::endl;
+            system("cls");//to clear the cmd output
+            
+            char sortChoice;
+            std::cout << "==============================" << std::endl;
+            std::cout << "          INVENTORY           " << std::endl;
+            std::cout << "==============================" << std::endl;
+            std::cout << "SORT THE BOOKS BY :" << std::endl;
+            std::cout << "A. Title" << std::endl;
+            std::cout << "B. Author" << std::endl;
+            std::cout << "==============================" << std::endl;
+
+            std::cout << "\nPLEASE ENTER YOUR CHOICE: ";
+            std::cin >> sortChoice;
+
+            switch (sortChoice)
+            {
+            case 'A' :
+            case 'a' :
+                
+                system("cls");
+                break;
+
+            case 'B' :
+            case 'b' :
+                
+                system("cls");
+                break;
+            }
+
+
+
+
             system("cls");
             break;
         case 'B':
