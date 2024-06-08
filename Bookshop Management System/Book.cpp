@@ -2,9 +2,13 @@
 #include <thread>
 #include <chrono>
 #include <iomanip>
+#include <conio.h>
+#include <limits>
+#include <algorithm>
 #include "Book.h"
-#include "limits"
-#include "algorithm"
+
+
+
 Book::Book()
 {
     pHead = nullptr;
@@ -51,7 +55,8 @@ void Book::pop()
     }
 }
 
-string trim(const string& str) {
+string trim(const string& str) 
+{
     size_t first = str.find_first_not_of(' ');
     size_t last = str.find_last_not_of(' ');
     return str.substr(first, (last - first + 1));
@@ -64,50 +69,53 @@ string toLowerCase(const string& str) {
     transform(lowerStr.begin(), lowerStr.end(), lowerStr.begin(), ::tolower);
     return lowerStr;
 }
-void Book::searchBook() {
+
+void Book::searchBook() 
+{
     NODE* pCurr = top;
-    string searchTitle;
-    cout << "Enter the title of the book to search: ";
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');    // To clear the newline character from the buffer
-    getline(cin, searchTitle);
+    std::string searchTitle;
+    std::cout << "Enter the title of the book to search: ";
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');    // To clear the newline character from the buffer
+    std::getline(std::cin, searchTitle);
     searchTitle = trim(searchTitle);
-    string searchTitleLower = toLowerCase(searchTitle); //toLowerCase for case insensitive
+    std::string searchTitleLower = toLowerCase(searchTitle); //toLowerCase for case insensitive
 
     bool found = false;
+    std::cout << "+------------------------------+--------------------+---------------+----------+----------+" << std::endl;
+    std::cout << "| " << std::setw(28) << std::left << "Title"
+        << " | " << std::setw(18) << std::left << "Author"
+        << " | " << std::setw(13) << std::left << "ISBN"
+        << " | " << std::setw(10) << std::left << "Price"
+        << " | " << std::setw(10) << std::left << "Quantity"
+        << " |" << std::endl;
+    std::cout << "+------------------------------+--------------------+---------------+----------+----------+" << std::endl;
+
     while (pCurr) {
-        string storedTitleLower = toLowerCase(trim(pCurr->title));
+        std::string storedTitleLower = toLowerCase(trim(pCurr->title));
 
         // Check if the searchTitleLower is a prefix of storedTitleLower
         if (storedTitleLower.find(searchTitleLower) == 0) {
             if (!found) {
-                cout << "Books found:" << endl;
-                cout << "===========================" << endl;
+                std::cout << "Books found:" << std::endl;
+                std::cout << "===========================" << std::endl;
             }
             found = true;
-            cout << "Title: " << pCurr->title << endl;
-            cout << "Author: " << pCurr->author << endl;
-            cout << "ISBN: " << pCurr->ISBN << endl;
-            cout << "Price: RM " << fixed << setprecision(2) << pCurr->price << endl;
-            cout << "Quantity: " << pCurr->quantity << endl;
-            cout << "---------------------------" << endl;
+            std::cout << "| " << std::setw(28) << std::left << pCurr->title
+                << " | " << std::setw(18) << std::left << pCurr->author
+                << " | " << std::setw(13) << std::left << pCurr->ISBN
+                << " | " << std::setw(10) << std::left << "RM " << std::fixed << std::setprecision(2) << pCurr->price
+                << " | " << std::setw(10) << std::left << pCurr->quantity
+                << " |" << std::endl;
+            std::cout << "+------------------------------+--------------------+---------------+----------+----------+" << std::endl;
 
         }
         pCurr = pCurr->next;
     }
     if (!found) {
-        cout << "No books found with the given title prefix." << endl;
+        std::cout << "No books found with the given title prefix." << std::endl;
     }
 }
 
-
-/*void Book::printOutFunction()
-{
-   std::cout << "The title is " << bookTitle << std::endl;
-    std::cout << "\nThe author is " << bookAuthor << std::endl;
-    std::cout << "\nThe ISBN is " << bookIsbn << std::endl;
-    std::cout << "\nThe price is " << bookPrice << std::endl;
-    std::cout << "\nThe quantity is " << bookQuantity << std::endl;
-}*/
 
 bool Book::empty()
 {
@@ -131,12 +139,13 @@ void Book::addBook()
         std::cout << "==========================================" << std::endl;
         std::cout << "Please key in the informations of new Books" << std::endl;
         std::cout << "==========================================" << std::endl;
+        std::cin.ignore(); // Clear the input buffer
         std::cout << "\nBookName: ";
-        std::cin >> newBookTitle;
+        std::getline(std::cin, newBookTitle);
         std::cout << "\nAuthor: ";
-        std::cin >> newBookAuthor;
+        std::getline(std::cin, newBookAuthor);
         std::cout << "\nISBN: ";
-        std::cin >> newBookIsbn;
+        std::getline(std::cin, newBookIsbn);
         // Input validation for price
         while (true) {
             std::cout << "\nPrice: ";
@@ -250,6 +259,10 @@ void Book::displayInventory()
         pCurr = pCurr->next;
         bookNumber++;
     }
+
+    
+    std::cout << "\n\nPress any key to quit: ";
+    _getch();
 }
 
 void Book::insertionSort()
