@@ -20,6 +20,7 @@ void inventoryMainPage()
         std::cout << "C. Edit Books" << std::endl;
         std::cout << "D. Delete Books" << std::endl;
         std::cout << "E. Search for Books" << std::endl;
+        std::cout << "F. Sort Books" << std::endl;
         std::cout << "0. Exit" << std::endl;
         std::cout << "==============================" << std::endl;
 
@@ -89,6 +90,13 @@ void inventoryMainPage()
                 
 
             }
+            break;
+        case 'F':
+        case 'f':
+            system("cls");
+            std::cout << "Sort" << std::endl;
+           
+            book.insertionSort();
             break;
         case '0':
             inventoryQuit = true;

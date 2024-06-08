@@ -21,6 +21,7 @@ public:
     int getNumberOfBooks();
     void printOutFunction();
     void displayInventory();
+    void insertionSort();
 
 private:
     class NODE {
