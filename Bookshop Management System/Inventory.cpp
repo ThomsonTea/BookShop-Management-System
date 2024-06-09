@@ -2,6 +2,7 @@
 #include <chrono>
 #include <thread>
 #include <iomanip>
+#include <conio.h>
 
 #include "Inventory.h"
 #include "Book.h"
@@ -11,6 +12,7 @@ void inventoryMainPage()
 {
     Book book;
     bool inventoryQuit = false;
+
     do {
         system("cls");
 
@@ -141,10 +143,10 @@ void inventoryMainPage()
 
         case 'D':
         case 'd':
-            std::cout << "Delete" << std::endl;
             system("cls");
-        break;
 
+            book.deleteBook();
+            break;
         case 'E':
         case 'e':
             std::cout << "Search" << std::endl;

@@ -16,11 +16,10 @@ public:
     void push(string&, string&, string&, double&, int&);
     void pop();
     void addBook();
-    //void deleteBook();
+    void deleteBook();
     //void modifyBook();
     bool empty();
     int getNumberOfBooks();
-    //void printOutFunction();
     void displayInventory();
     void ascending_title_insertionSort();
     void descending_title_insertionSort();
@@ -29,7 +28,8 @@ public:
 
 
 private:
-    class NODE {
+    class NODE 
+    {
      public:
             string title;
             string author;
@@ -37,12 +37,10 @@ private:
             double price;
             int quantity;
             
-
             NODE* next;
-        };
+    };
 
     NODE* pHead;
-    NODE* pCurr;
     NODE* top;
     int numItem;
 };

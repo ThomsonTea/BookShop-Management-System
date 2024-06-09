@@ -5,15 +5,13 @@
 #include <conio.h>
 #include <limits>
 #include <algorithm>
-#include "Book.h"
 
+#include "Book.h"
 
 
 Book::Book()
 {
-    pHead = nullptr;
-    pCurr = nullptr;
-    top = NULL;
+    top = nullptr;
     numItem = 0;
 }
 
@@ -42,7 +40,7 @@ void Book::push(string& bookTitle, string& bookAuthor, string& bookIsbn, double&
 
 void Book::pop()
 {
-    if (empty())
+    if (!empty())
     {
         NODE* temp = top;
         top = top->next;
@@ -207,7 +205,7 @@ void Book::addBook()
                 std::cout << "\nThere doesn't have any books in the lists" << std::endl;
                 std::this_thread::sleep_for(chrono::seconds(1));
             }
-            continue;
+            break;
         case '0':
             std::cout << "\nInserting the books into inventory..." << std::endl;
             std::this_thread::sleep_for(chrono::milliseconds(500));
@@ -231,6 +229,7 @@ void Book::displayInventory()
     NODE* pCurr = top;
     if (pCurr == nullptr) {
         std::cout << "The inventory is empty." << std::endl;
+        _getch();
         return;
     }
 
@@ -259,10 +258,6 @@ void Book::displayInventory()
         pCurr = pCurr->next;
         bookNumber++;
     }
-
-    
-    std::cout << "\n\nPress any key to quit: ";
-    _getch();
 }
 
 void Book::ascending_title_insertionSort()
@@ -351,20 +346,26 @@ void Book::ascending_author_insertionSort()
 
 void Book::descending_author_insertionSort()
 {
-    if (!top || !top->next) return; // No need to sort if list is empty or has only one element
+    if (!top || !top->next)
+    {
+        return; // No need to sort if list is empty or has only one element
+    }
 
     NODE* sorted = nullptr; // Start with an empty sorted list
 
-    while (top) {
+    while (top)
+    {
         NODE* pCurr = top;
         top = top->next;
 
-        if (!sorted || sorted->author < pCurr->author) {
+        if (!sorted || sorted->author < pCurr->author) 
+        {
             // Insert at the beginning of the sorted list
             pCurr->next = sorted;
             sorted = pCurr;
         }
-        else {
+        else 
+        {
             // Insert in the correct position in the sorted list
             NODE* temp = sorted;
             while (temp->next && temp->next->author > pCurr->author) {
@@ -377,4 +378,45 @@ void Book::descending_author_insertionSort()
     top = sorted;
 }
 
+<<<<<<< Updated upstream
 
+=======
+void Book::deleteBook() 
+{
+    displayInventory();
+    std::cout << "\n\nPlease enter the title of the book you want to delete: ";
+    std::string target;
+    std::cin.ignore(); // To clear the newline character from the buffer
+    std::getline(std::cin, target);
+
+    NODE* pCurr = top;
+    NODE* prev = nullptr;
+
+    while (pCurr != nullptr && pCurr->title != target) 
+    {
+        prev = pCurr;
+        pCurr = pCurr->next;
+    }
+
+    if (pCurr == nullptr) 
+    {
+        std::cout << "Book with title \"" << target << "\" not found.\n";
+        return;
+    }
+
+    if (prev == nullptr) 
+    {
+        // The book to delete is the first node
+        top = pCurr->next;
+    }
+    else 
+    {
+        // The book to delete is not the first node
+        prev->next = pCurr->next;
+    }
+
+    std::cout << "Book with title \"" << pCurr->title << "\" has been deleted.\n";
+    delete pCurr;
+    --numItem;
+}
+>>>>>>> Stashed changes

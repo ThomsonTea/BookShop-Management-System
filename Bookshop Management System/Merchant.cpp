@@ -48,10 +48,5 @@ void merchantMainPage()
 			break;
 		}
 	} while (!merchantQuit);
-
 }
 
-/*void::viewsales()
-{
-
-}*/
