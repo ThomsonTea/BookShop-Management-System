@@ -14,13 +14,15 @@ public:
     ~Book();
     void searchBook();
     void push(string&, string&, string&, double&, int&);
+    void pop();
     void addBook();
-    void deleteBook();
-    void modifyBook();
+    //void deleteBook();
+    //void modifyBook();
     bool empty();
     int getNumberOfBooks();
-    void printOutFunction();
+    //void printOutFunction();
     void displayInventory();
+    void insertionSort();
 
 private:
     class NODE {
