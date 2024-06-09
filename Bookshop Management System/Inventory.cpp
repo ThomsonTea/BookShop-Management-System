@@ -4,6 +4,7 @@
 
 #include "Inventory.h"
 #include "Book.h"
+#include <iomanip>
 
 void inventoryMainPage()
 {
@@ -18,6 +19,7 @@ void inventoryMainPage()
         std::cout << "B. Insert Books" << std::endl;
         std::cout << "C. Edit Books" << std::endl;
         std::cout << "D. Delete Books" << std::endl;
+        std::cout << "E. Search for Books" << std::endl;
         std::cout << "0. Exit" << std::endl;
         std::cout << "==============================" << std::endl;
 
@@ -28,39 +30,11 @@ void inventoryMainPage()
         {
         case 'A':
         case 'a':
-            system("cls");//to clear the cmd output
+            std::cout << "Show" << std::endl;
             
-            char sortChoice;
-            std::cout << "==============================" << std::endl;
-            std::cout << "          INVENTORY           " << std::endl;
-            std::cout << "==============================" << std::endl;
-            std::cout << "SORT THE BOOKS BY :" << std::endl;
-            std::cout << "A. Title" << std::endl;
-            std::cout << "B. Author" << std::endl;
-            std::cout << "==============================" << std::endl;
-
-            std::cout << "\nPLEASE ENTER YOUR CHOICE: ";
-            std::cin >> sortChoice;
-
-            switch (sortChoice)
-            {
-            case 'A' :
-            case 'a' :
-                
-                system("cls");
-                break;
-
-            case 'B' :
-            case 'b' :
-                
-                system("cls");
-                break;
-            }
-
-
-
-
             system("cls");
+            book.displayInventory();
+
             break;
         case 'B':
         case 'b':
@@ -77,7 +51,44 @@ void inventoryMainPage()
         case 'd':
             std::cout << "Delete" << std::endl;
             system("cls");
-            //deleteBooks();
+            {
+                bool deleteAgain = false;
+                do {
+                    book.deleteBook();
+                    char deleteOption;
+                    cout << "Do you want to delete for another book? (Y/N): ";
+                    cin >> deleteOption;
+                    while (deleteOption != 'Y' && deleteOption != 'y' && deleteOption != 'N' && deleteOption != 'n') {
+                        cout << "Invalid input. Please enter 'Y' or 'N': ";
+                        cin >> deleteOption;
+                    }
+                    deleteAgain = (deleteOption == 'Y' || deleteOption == 'y');
+                } while (deleteAgain);
+
+
+            }
+            //book.deleteBook();
+            break;
+        case 'E':
+        case 'e':
+            std::cout << "Search" << std::endl;
+            system("cls");
+            {
+                bool searchAgain = false;
+                do {
+                    book.searchBook();
+                    char searchOption;
+                    cout << "Do you want to search for another book? (Y/N): ";
+                    cin >> searchOption;
+                    while (searchOption != 'Y' && searchOption != 'y' && searchOption != 'N' && searchOption != 'n') {
+                        cout << "Invalid input. Please enter 'Y' or 'N': ";
+                        cin >> searchOption;
+                    }
+                    searchAgain = (searchOption == 'Y' || searchOption == 'y');
+                } while (searchAgain);
+                
+
+            }
             break;
         case '0':
             inventoryQuit = true;
@@ -90,6 +101,37 @@ void inventoryMainPage()
         }
     } while (!inventoryQuit);
 
+}
+
+//display inventory
+void Book::displayInventory()
+{
+    system("cls");
+    NODE* pCurr = top;
+    if (pCurr == nullptr) {
+        std::cout << "The inventory is empty." << std::endl;
+        return;
+
+    }
+    std::cout << "Book Inventory:" << endl;
+    std::cout << "=========================" << endl;
+    int bookNumber = 1;
+    
+    while (pCurr != nullptr) {
+        std::cout << "Book " << bookNumber << ":" << std::endl;
+        std::cout << "Title: " << pCurr->title << std::endl;
+        std::cout << "Author: " << pCurr->author << std::endl;
+        std::cout << "ISBN: " << pCurr->ISBN << std::endl;
+        std::cout << "Price: RM" << pCurr->price << std::endl;
+        std::cout << "Quantity: " << pCurr->quantity << std::endl;
+        std::cout << "---------------------------" << std::endl;
+       /* for (int x = 0; x <= 10; x++) {
+            std::cout << "\n|";
+            std::cout << std::setw(5) << 
+        }*/
+        pCurr = pCurr->next;
+        bookNumber++;
+    }
 }
 
 void Book::addBook()
@@ -107,7 +149,7 @@ void Book::addBook()
         system("cls");
         char addingAction;
         std::cout << "==========================================" << std::endl;
-        std::cout << "Please key in the infomations of new Books" << std::endl;
+        std::cout << "Please key in the informations of new Books" << std::endl;
         std::cout << "==========================================" << std::endl;
         std::cout << "\nBookName: ";
         std::cin >> newBookTitle;
@@ -164,8 +206,17 @@ void Book::addBook()
             std::cout << "\nInvalid input, please try again..." << std::endl;
             this_thread::sleep_for(chrono::milliseconds(500));
             break;
+            
         }
 
 
     } while (!endinsert);
+
+    
+}
+
+void Book::deleteBook() {
+    top = top->next;
+    numItem--;
+    std::cout << "Latest Book is deleted" << std::endl;
 }
