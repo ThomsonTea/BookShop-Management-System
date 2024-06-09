@@ -265,7 +265,91 @@ void Book::displayInventory()
     _getch();
 }
 
-void Book::insertionSort()
+void Book::ascending_title_insertionSort()
+{
+    if (!top || !top->next) return; // No need to sort if list is empty or has only one element
+
+    NODE* sorted = nullptr; // Start with an empty sorted list
+
+    while (top) {
+        NODE* pCurr = top;
+        top = top->next;
+
+        if (!sorted || sorted->title > pCurr->title) {
+            // Insert at the beginning of the sorted list
+            pCurr->next = sorted;
+            sorted = pCurr;
+        }
+        else {
+            // Insert in the correct position in the sorted list
+            NODE* temp = sorted;
+            while (temp->next && temp->next->title < pCurr->title) {
+                temp = temp->next;
+            }
+            pCurr->next = temp->next;
+            temp->next = pCurr;
+        }
+    }
+    top = sorted;
+}
+
+void Book::descending_title_insertionSort()
+{
+    if (!top || !top->next) return; // No need to sort if list is empty or has only one element
+
+    NODE* sorted = nullptr; // Start with an empty sorted list
+
+    while (top) {
+        NODE* pCurr = top;
+        top = top->next;
+
+        if (!sorted || sorted->title < pCurr->title) {
+            // Insert at the beginning of the sorted list
+            pCurr->next = sorted;
+            sorted = pCurr;
+        }
+        else {
+            // Insert in the correct position in the sorted list
+            NODE* temp = sorted;
+            while (temp->next && temp->next->title > pCurr->title) {
+                temp = temp->next;
+            }
+            pCurr->next = temp->next;
+            temp->next = pCurr;
+        }
+    }
+    top = sorted;
+}
+
+void Book::ascending_author_insertionSort()
+{
+    if (!top || !top->next) return; // No need to sort if list is empty or has only one element
+
+    NODE* sorted = nullptr; // Start with an empty sorted list
+
+    while (top) {
+        NODE* pCurr = top;
+        top = top->next;
+
+        if (!sorted || sorted->author > pCurr->author) {
+            // Insert at the beginning of the sorted list
+            pCurr->next = sorted;
+            sorted = pCurr;
+        }
+        else {
+            // Insert in the correct position in the sorted list
+            NODE* temp = sorted;
+            while (temp->next && temp->next->author < pCurr->author) {
+                temp = temp->next;
+            }
+            pCurr->next = temp->next;
+            temp->next = pCurr;
+        }
+    }
+    top = sorted;
+}
+
+void Book::descending_author_insertionSort()
 {
     if (!top || !top->next) return; // No need to sort if list is empty or has only one element
 
@@ -292,3 +376,5 @@ void Book::insertionSort()
     }
     top = sorted;
 }
+
+

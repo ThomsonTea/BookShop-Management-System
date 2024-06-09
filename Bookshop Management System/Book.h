@@ -22,7 +22,11 @@ public:
     int getNumberOfBooks();
     //void printOutFunction();
     void displayInventory();
-    void insertionSort();
+    void ascending_title_insertionSort();
+    void descending_title_insertionSort();
+    void ascending_author_insertionSort();
+    void descending_author_insertionSort();
+
 
 private:
     class NODE {

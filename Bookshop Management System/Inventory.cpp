@@ -15,16 +15,18 @@ void inventoryMainPage()
         system("cls");
 
         char action;
+        char sortAction;
+        char orderAction;
 
         std::cout << "==============================" << std::endl;
         std::cout << "          INVENTORY           " << std::endl;
         std::cout << "==============================" << std::endl;
-        std::cout << "A. Show Books" << std::endl;
-        std::cout << "B. Insert Books" << std::endl;
-        std::cout << "C. Edit Books" << std::endl;
-        std::cout << "D. Delete Books" << std::endl;
-        std::cout << "E. Search for Books" << std::endl;
-        std::cout << "0. Exit" << std::endl;
+        std::cout << "A. Show Books                 " << std::endl;
+        std::cout << "B. Insert Books               " << std::endl;
+        std::cout << "C. Edit Books                 " << std::endl;
+        std::cout << "D. Delete Books               " << std::endl;
+        std::cout << "E. Search for Books           " << std::endl;
+        std::cout << "0. Exit                       " << std::endl;
         std::cout << "==============================" << std::endl;
 
         std::cout << "\nPLEASE ENTER YOUR CHOICE: ";
@@ -34,28 +36,115 @@ void inventoryMainPage()
         {
         case 'A':
         case 'a':
-            std::cout << "Show" << std::endl;
-            
+            //show books
             system("cls");
-            book.displayInventory();
 
+            std::cout << "==============================" << std::endl;
+            std::cout << "          INVENTORY           " << std::endl;
+            std::cout << "==============================" << std::endl;
+            std::cout << "SORT BOOKS BY :               " << std::endl;
+            std::cout << "A. Title                      " << std::endl;
+            std::cout << "B. Author                     " << std::endl;
+
+            std::cout << "\nPLEASE ENTER YOUR CHOICE: ";
+            std::cin >> sortAction;
+
+            switch (sortAction)
+            {
+            case 'A':
+            case 'a':
+                //show books>title
+                system("cls");
+
+                std::cout << "==============================" << std::endl;
+                std::cout << "          INVENTORY           " << std::endl;
+                std::cout << "==============================" << std::endl;
+                std::cout << "ORDER :                       " << std::endl;
+                std::cout << "A. Ascending                  " << std::endl;
+                std::cout << "B. Descending                 " << std::endl;
+
+                std::cout << "\nPLEASE ENTER YOUR CHOICE: ";
+                std::cin >> orderAction;
+
+                switch (orderAction)
+                {
+                case 'A':
+                case 'a':
+                    //Show books>Title>Ascending
+                    book.ascending_title_insertionSort();
+                    book.displayInventory();
+                    system("cls");
+                break;
+
+                case 'B':
+                case 'b':
+                    //Show books>Title>Descending
+                    book.descending_title_insertionSort();
+                    book.displayInventory();
+                    system("cls");
+                break;
+                }
+
+                system("cls");
             break;
+
+            case 'B':
+            case 'b':
+                //Show books>Author
+
+                std::cout << "==============================" << std::endl;
+                std::cout << "          INVENTORY           " << std::endl;
+                std::cout << "==============================" << std::endl;
+                std::cout << "ORDER :                       " << std::endl;
+                std::cout << "A. Ascending                  " << std::endl;
+                std::cout << "B. Descending                 " << std::endl;
+
+                std::cout << "\nPLEASE ENTER YOUR CHOICE: ";
+                std::cin >> orderAction;
+
+                switch (orderAction)
+                {
+                case 'A':
+                case 'a':
+                    //Show books>Author>Ascending
+                    book.ascending_author_insertionSort();
+                    book.displayInventory();
+                    system("cls");
+                break;
+
+                case 'B':
+                case 'b':
+                    //Show books>Author>Descending
+                    book.descending_author_insertionSort();
+                    book.displayInventory();
+                    system("cls");
+                break;
+                }
+                system("cls");
+            break;
+            }
+
+        break;
+
         case 'B':
         case 'b':
             std::cout << "Insert" << std::endl;
             book.addBook();
-            break;
+        break;
+
         case 'C':
         case 'c':
             std::cout << "Edit" << std::endl;
             system("cls");
             //editBooks();
-            break;
+        break;
+
         case 'D':
         case 'd':
             std::cout << "Delete" << std::endl;
             system("cls");
-            break;
+        break;
+
         case 'E':
         case 'e':
             std::cout << "Search" << std::endl;
@@ -74,15 +163,17 @@ void inventoryMainPage()
                     searchAgain = (searchOption == 'Y' || searchOption == 'y');
                 } while (searchAgain);
             }
-            break;
+        break;
+
         case '0':
             inventoryQuit = true;
             system("cls");
-            break;
+        break;
+
         default:
             std::cout << "\nInvalid Input, please try again..." << std::endl;
             std::this_thread::sleep_for(chrono::milliseconds(500));
-            break;
+        break;
         }
     } while (!inventoryQuit);
 }
