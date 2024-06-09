@@ -258,9 +258,10 @@ void Book::displayInventory()
         pCurr = pCurr->next;
         bookNumber++;
     }
+    _getch();
 }
 
-void Book::ascending_title_insertionSort()
+void Book::ascendingTitleInsertionSort()
 {
     if (!top || !top->next) return; // No need to sort if list is empty or has only one element
 
@@ -288,7 +289,7 @@ void Book::ascending_title_insertionSort()
     top = sorted;
 }
 
-void Book::descending_title_insertionSort()
+void Book::descendingTitleInsertionSort()
 {
     if (!top || !top->next) return; // No need to sort if list is empty or has only one element
 
@@ -316,7 +317,7 @@ void Book::descending_title_insertionSort()
     top = sorted;
 }
 
-void Book::ascending_author_insertionSort()
+void Book::ascendingAuthorInsertionSort()
 {
     if (!top || !top->next) return; // No need to sort if list is empty or has only one element
 
@@ -344,7 +345,7 @@ void Book::ascending_author_insertionSort()
     top = sorted;
 }
 
-void Book::descending_author_insertionSort()
+void Book::descendingAuthorInsertionSort()
 {
     if (!top || !top->next)
     {
@@ -378,9 +379,6 @@ void Book::descending_author_insertionSort()
     top = sorted;
 }
 
-<<<<<<< Updated upstream
-
-=======
 void Book::deleteBook() 
 {
     displayInventory();
@@ -419,4 +417,176 @@ void Book::deleteBook()
     delete pCurr;
     --numItem;
 }
->>>>>>> Stashed changes
+
+void Book::insertionSort() {
+    system("cls");
+
+    char sortAction, orderAction;
+
+    //show books
+    std::cout << "==============================" << std::endl;
+    std::cout << "          INVENTORY           " << std::endl;
+    std::cout << "==============================" << std::endl;
+    std::cout << "SORT BOOKS BY :               " << std::endl;
+    std::cout << "A. Title                      " << std::endl;
+    std::cout << "B. Author                     " << std::endl;
+
+    std::cout << "\nPLEASE ENTER YOUR CHOICE: ";
+    std::cin >> sortAction;
+
+    switch (sortAction) {
+    case 'A':
+    case 'a': {
+        //show books>title
+        system("cls");
+        std::cout << "==============================" << std::endl;
+        std::cout << "          INVENTORY           " << std::endl;
+        std::cout << "==============================" << std::endl;
+        std::cout << "ORDER :                       " << std::endl;
+        std::cout << "A. Ascending                  " << std::endl;
+        std::cout << "B. Descending                 " << std::endl;
+
+        std::cout << "\nPLEASE ENTER YOUR CHOICE: ";
+        std::cin >> orderAction;
+
+        switch (orderAction) {
+        case 'A':
+        case 'a':
+            //Show books>Title>Ascending
+            Book::ascendingTitleInsertionSort();
+            Book::displayInventory();
+            system("cls");
+            break;
+
+        case 'B':
+        case 'b':
+            //Show books>Title>Descending
+            Book::descendingTitleInsertionSort();
+            Book::displayInventory();
+            system("cls");
+            break;
+        default:
+            std::cout << "\nInvalid Input, please try again..." << std::endl;
+            std::this_thread::sleep_for(chrono::milliseconds(500));
+            break;
+        }
+
+        system("cls");
+        break;
+    }
+    case 'B':
+    case 'b': {
+        //Show books>Author
+        system("cls");
+        std::cout << "==============================" << std::endl;
+        std::cout << "          INVENTORY           " << std::endl;
+        std::cout << "==============================" << std::endl;
+        std::cout << "ORDER :                       " << std::endl;
+        std::cout << "A. Ascending                  " << std::endl;
+        std::cout << "B. Descending                 " << std::endl;
+
+        std::cout << "\nPLEASE ENTER YOUR CHOICE: ";
+        std::cin >> orderAction;
+
+        switch (orderAction) {
+        case 'A':
+        case 'a':
+            //Show books>Author>Ascending
+            Book::ascendingAuthorInsertionSort();
+            Book::displayInventory();
+            system("cls");
+            break;
+
+        case 'B':
+        case 'b':
+            //Show books>Author>Descending
+            Book::descendingAuthorInsertionSort();
+            Book::displayInventory();
+            system("cls");
+            break;
+        default:
+            std::cout << "\nInvalid Input, please try again..." << std::endl;
+            std::this_thread::sleep_for(chrono::milliseconds(500));
+            break;
+        }
+        break;
+    }
+    default:
+        std::cout << "\nInvalid Input, please try again..." << std::endl;
+        std::this_thread::sleep_for(chrono::milliseconds(500));
+        break;
+    }
+}
+
+void Book::updateBook() 
+{
+    system("cls");
+    displayInventory();
+    std::cout << "\n\nPlease enter the title of the book you want to modify: ";
+    std::string target;
+    std::cin.ignore(); // To clear the newline character from the buffer
+    std::getline(std::cin, target);
+
+    NODE* pCurr = top;
+
+    while (pCurr != nullptr && pCurr->title != target) {
+        pCurr = pCurr->next;
+    }
+
+    if (pCurr == nullptr) {
+        std::cout << "Book with title \"" << target << "\" not found.\n";
+        return;
+    }
+
+    std::string newTitle, newAuthor, newISBN;
+    double newPrice;
+    int newQuantity;
+
+    std::cout << "Enter new details for the book (leave blank to keep current value):\n";
+
+    std::cout << "Title [" << pCurr->title << "]: ";
+    std::getline(std::cin, newTitle);
+    if (!newTitle.empty()) {
+        pCurr->title = newTitle;
+    }
+
+    std::cout << "Author [" << pCurr->author << "]: ";
+    std::getline(std::cin, newAuthor);
+    if (!newAuthor.empty()) {
+        pCurr->author = newAuthor;
+    }
+
+    std::cout << "ISBN [" << pCurr->ISBN << "]: ";
+    std::getline(std::cin, newISBN);
+    if (!newISBN.empty()) {
+        pCurr->ISBN = newISBN;
+    }
+
+    std::cout << "Price [" << pCurr->price << "]: ";
+    std::string priceInput;
+    std::getline(std::cin, priceInput);
+    if (!priceInput.empty()) {
+        try {
+            newPrice = std::stod(priceInput);
+            pCurr->price = newPrice;
+        }
+        catch (const std::invalid_argument&) {
+            std::cout << "Invalid price input, keeping current value.\n";
+        }
+    }
+
+    std::cout << "Quantity [" << pCurr->quantity << "]: ";
+    std::string quantityInput;
+    std::getline(std::cin, quantityInput);
+    if (!quantityInput.empty()) {
+        try {
+            newQuantity = std::stoi(quantityInput);
+            pCurr->quantity = newQuantity;
+        }
+        catch (const std::invalid_argument&) {
+            std::cout << "Invalid quantity input, keeping current value.\n";
+        }
+    }
+
+    std::cout << "Book details updated successfully.\n";
+}

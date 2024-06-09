@@ -21,11 +21,12 @@ public:
     bool empty();
     int getNumberOfBooks();
     void displayInventory();
-    void ascending_title_insertionSort();
-    void descending_title_insertionSort();
-    void ascending_author_insertionSort();
-    void descending_author_insertionSort();
-
+    void ascendingTitleInsertionSort();
+    void descendingTitleInsertionSort();
+    void ascendingAuthorInsertionSort();
+    void descendingAuthorInsertionSort();
+    void insertionSort();
+    void updateBook();
 
 private:
     class NODE 

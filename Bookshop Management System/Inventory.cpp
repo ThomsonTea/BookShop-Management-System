@@ -1,4 +1,4 @@
-#include <iostream>//hehe this is inventory
+#include <iostream>
 #include <chrono>
 #include <thread>
 #include <iomanip>
@@ -17,8 +17,6 @@ void inventoryMainPage()
         system("cls");
 
         char action;
-        char sortAction;
-        char orderAction;
 
         std::cout << "==============================" << std::endl;
         std::cout << "          INVENTORY           " << std::endl;
@@ -38,113 +36,19 @@ void inventoryMainPage()
         {
         case 'A':
         case 'a':
-            //show books
-            system("cls");
-
-            std::cout << "==============================" << std::endl;
-            std::cout << "          INVENTORY           " << std::endl;
-            std::cout << "==============================" << std::endl;
-            std::cout << "SORT BOOKS BY :               " << std::endl;
-            std::cout << "A. Title                      " << std::endl;
-            std::cout << "B. Author                     " << std::endl;
-
-            std::cout << "\nPLEASE ENTER YOUR CHOICE: ";
-            std::cin >> sortAction;
-
-            switch (sortAction)
-            {
-            case 'A':
-            case 'a':
-                //show books>title
-                system("cls");
-
-                std::cout << "==============================" << std::endl;
-                std::cout << "          INVENTORY           " << std::endl;
-                std::cout << "==============================" << std::endl;
-                std::cout << "ORDER :                       " << std::endl;
-                std::cout << "A. Ascending                  " << std::endl;
-                std::cout << "B. Descending                 " << std::endl;
-
-                std::cout << "\nPLEASE ENTER YOUR CHOICE: ";
-                std::cin >> orderAction;
-
-                switch (orderAction)
-                {
-                case 'A':
-                case 'a':
-                    //Show books>Title>Ascending
-                    book.ascending_title_insertionSort();
-                    book.displayInventory();
-                    system("cls");
-                break;
-
-                case 'B':
-                case 'b':
-                    //Show books>Title>Descending
-                    book.descending_title_insertionSort();
-                    book.displayInventory();
-                    system("cls");
-                break;
-                }
-
-                system("cls");
+            book.insertionSort();
             break;
-
-            case 'B':
-            case 'b':
-                //Show books>Author
-
-                std::cout << "==============================" << std::endl;
-                std::cout << "          INVENTORY           " << std::endl;
-                std::cout << "==============================" << std::endl;
-                std::cout << "ORDER :                       " << std::endl;
-                std::cout << "A. Ascending                  " << std::endl;
-                std::cout << "B. Descending                 " << std::endl;
-
-                std::cout << "\nPLEASE ENTER YOUR CHOICE: ";
-                std::cin >> orderAction;
-
-                switch (orderAction)
-                {
-                case 'A':
-                case 'a':
-                    //Show books>Author>Ascending
-                    book.ascending_author_insertionSort();
-                    book.displayInventory();
-                    system("cls");
-                break;
-
-                case 'B':
-                case 'b':
-                    //Show books>Author>Descending
-                    book.descending_author_insertionSort();
-                    book.displayInventory();
-                    system("cls");
-                break;
-                }
-                system("cls");
-            break;
-            }
-
-        break;
-
         case 'B':
         case 'b':
-            std::cout << "Insert" << std::endl;
             book.addBook();
-        break;
-
+            break;
         case 'C':
         case 'c':
-            std::cout << "Edit" << std::endl;
-            system("cls");
-            //editBooks();
+            book.updateBook();
         break;
 
         case 'D':
         case 'd':
-            system("cls");
-
             book.deleteBook();
             break;
         case 'E':
