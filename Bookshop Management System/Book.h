@@ -1,5 +1,5 @@
-#ifndef BOOK
-#define BOOK
+#ifndef BOOK_H
+#define BOOK_H
 
 #include <string>
 #include <iostream>
@@ -25,7 +25,7 @@ public:
     void descending_title_insertionSort();
     void ascending_author_insertionSort();
     void descending_author_insertionSort();
-
+    void  sellBook();
 
 private:
     class NODE 

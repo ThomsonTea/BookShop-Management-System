@@ -1,13 +1,15 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
-
+#include <iomanip>
 #include "Merchant.h"
 #include "Book.h"
 
 void merchantMainPage()
 {
+	Book book;
 	bool merchantQuit = false;
+	
 
 	do {
 		system("cls");
@@ -29,7 +31,7 @@ void merchantMainPage()
 		case'a':
 			std::cout << "Cashier" << std::endl;
 			system("cls");
-			//sellBook();
+			book.sellBook();
 			break;
 		case 'B':
 		case'b':
