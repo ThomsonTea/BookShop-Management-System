@@ -84,8 +84,8 @@ void Book::addBook()
         std::cout << "The number of the books have added is " << numberNewBooks << std::endl;
 
         std::cout << "=============================================" << std::endl;
-        std::cout << "\n\n1. Add Next";
-        std::cout << "\n2. Undo";
+        std::cout << "\n\nA. Add Next";
+        std::cout << "\nB. Undo";
         std::cout << "\n0. Confirm" << std::endl;
 
         std::cout << "Please choose your next action: ";
@@ -93,11 +93,13 @@ void Book::addBook()
         std::cin >> addingAction;
 
         switch (addingAction) {
-        case '1':
+        case 'A':
+        case 'a':
             std::cout << "\nPreparing for the next books..." << std::endl;
             std::this_thread::sleep_for(std::chrono::milliseconds(500));
             break;
-        case '2':
+        case 'B':
+        case 'b':
             if (numberNewBooks != 0) {
                 Book::pop();
                 --numberNewBooks;
