@@ -27,6 +27,7 @@ public:
     void descendingAuthorInsertionSort();
     void insertionSort();
     void updateBook();
+    void sellBook();
 
 private:
     class NODE 

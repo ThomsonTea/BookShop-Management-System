@@ -590,3 +590,79 @@ void Book::updateBook()
 
     std::cout << "Book details updated successfully.\n";
 }
+
+void Book::sellBook() {
+    if (!top) {
+        cout << "The inventory is empty." << endl;
+        return;
+    }
+
+    NODE* pCurr = top;
+    string searchTitle;
+    cout << "Enter the title of the book to sell: ";
+    _getch();
+    // Clear the input buffer before reading
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+    // Get the entire line of input from the user
+    getline(cin, searchTitle);
+
+    // Trim leading and trailing whitespace
+    searchTitle = trim(searchTitle);
+
+    // Convert to lowercase for case-insensitive comparison
+    string searchTitleLower = toLowerCase(searchTitle);
+
+    while (pCurr) {
+        // Trim and convert stored title to lowercase for case-insensitive comparison
+        string storedTitleLower = toLowerCase(trim(pCurr->title));
+
+        // Check if the storedTitle matches the searchTitle
+        if (storedTitleLower == searchTitleLower) {
+            cout << "Book found:" << endl;
+            cout << "Title: " << pCurr->title << endl;
+            cout << "Author: " << pCurr->author << endl;
+            cout << "ISBN: " << pCurr->ISBN << endl;
+            cout << "Price: $" << fixed << setprecision(2) << pCurr->price << endl;
+            cout << "Quantity: " << pCurr->quantity << endl;
+
+            char confirm;
+            cout << "Do you want to sell this book? (Y/N): ";
+            cin >> confirm;
+
+            if (confirm == 'Y' || confirm == 'y') {
+                int sellQuantity;
+                cout << "Enter quantity to sell: ";
+                cin >> sellQuantity;
+
+                if (sellQuantity > pCurr->quantity) {
+                    cout << "Not enough stock available." << endl;
+                    return;
+                }
+
+                pCurr->quantity -= sellQuantity;
+                cout << "Book sold!" << endl;
+
+                // Display receipt
+                cout << "Receipt:" << endl;
+                cout << "===========================" << endl;
+                cout << "Title: " << pCurr->title << endl;
+                cout << "Author: " << pCurr->author << endl;
+                cout << "ISBN: " << pCurr->ISBN << endl;
+                cout << "Price: $" << fixed << setprecision(2) << pCurr->price << endl;
+                cout << "Quantity Sold: " << sellQuantity << endl;
+                cout << "Total: $" << fixed << setprecision(2) << pCurr->price * sellQuantity << endl;
+                cout << "===========================" << endl;
+                return;
+            }
+            else {
+                cout << "Sale canceled." << endl;
+                return;
+            }
+        }
+        pCurr = pCurr->next;
+        _getch();
+    }
+
+    cout << "Book not found." << endl;
+}
