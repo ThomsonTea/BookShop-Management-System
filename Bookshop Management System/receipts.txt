@@ -1,0 +1,24 @@
+Receipt:
+===========================
+Receipt Number: 18423
+Title: harith
+Quantity Sold: 5
+Price per Book: $500.00
+Total Price: $2500.00
+===========================
+Receipt:
+===========================
+Receipt Number: 23223
+Title: harith
+Quantity Sold: 2
+Price per Book: $600.00
+Total Price: $1200.00
+===========================
+Receipt:
+===========================
+Receipt Number: 23223
+Title: harith
+Quantity Sold: 5
+Price per Book: $600.00
+Total Price: $3000.00
+===========================

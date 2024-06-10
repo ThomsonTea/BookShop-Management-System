@@ -3,6 +3,7 @@
 
 #include <string>
 #include <iostream>
+#include <cstdlib>
 
 
 using namespace std;
@@ -31,6 +32,11 @@ public:
     string toLowerCase(const string& str);
     string trim(const string& str);
     void update();
+    void sales();
+ 
+    
+    
+   
 
 private:
     class NODE 
@@ -44,7 +50,7 @@ private:
             
             NODE* next;
     };
-
+    void generateReceipt(const NODE* book, int quantitySold, ofstream& receiptFile, int receiptNumber);
     NODE* pHead;
     NODE* top;
     int numItem;

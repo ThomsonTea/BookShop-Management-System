@@ -5,7 +5,9 @@
 #include <conio.h>
 #include <limits>
 #include <algorithm>
-
+#include <fstream>
+#include <cstdlib> 
+#include <ctime>
 #include "Book.h"
 
 
@@ -537,6 +539,7 @@ void Book::inventoryMainPage()
 
 void Book::merchantMainPage()
 {
+   
     bool merchantQuit = false;
 
     do
@@ -567,7 +570,7 @@ void Book::merchantMainPage()
             std::cout << "\nNavigating to Sales..." << std::endl;
             std::this_thread::sleep_for(chrono::milliseconds(500));
             system("cls");
-            //viewSales();
+            
             break;
         case '0':
             std::cout << "Exiting..." << std::endl;
@@ -666,83 +669,97 @@ void Book::sellBook() {
         _getch();
         return;
     }
-
-
-    string searchTitle;
-    std::cout << "Enter the title of the book to sell: ";
-
-    // Clear the input buffer before reading
-    std::cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
-    // Get the entire line of input from the user
-    getline(cin, searchTitle);
-
-    // Trim leading and trailing whitespace
-    searchTitle = trim(searchTitle);
-
-    // Convert to lowercase for case-insensitive comparison
-    string searchTitleLower = toLowerCase(searchTitle);
-
-    while (pCurr) {
-        // Trim and convert stored title to lowercase for case-insensitive comparison
-        string storedTitleLower = toLowerCase(trim(pCurr->title));
-
-        // Check if the storedTitle matches the searchTitle
-        if (storedTitleLower == searchTitleLower) {
-            std::cout << "Book found:" << std::endl;
-            std::cout << "Title: " << pCurr->title << std::endl;
-            std::cout << "Author: " << pCurr->author << std::endl;
-            std::cout << "ISBN: " << pCurr->ISBN << std::endl;
-            std::cout << "Price: RM" << fixed << setprecision(2) << pCurr->price << std::endl;
-            std::cout << "Quantity: " << pCurr->quantity << std::endl;
-
-            char confirm;
-            std::cout << "Do you want to sell this book? (Y/N): ";
-            std::cin >> confirm;
-
-            if (confirm == 'Y' || confirm == 'y') {
-                int sellQuantity;
-                std::cout << "Enter quantity to sell: ";
-                std::cin >> sellQuantity;
-
-                if (sellQuantity > pCurr->quantity) {
-                    std::cout << "Not enough stock available." << std::endl;
-                    std::cout << "\nPress any key back to the page." << std::endl;
-                    _getch;
-                    return;
-                }
-
-                pCurr->quantity -= sellQuantity;
-                std::cout << "Book sold!" << std::endl;
-
-                // Display receipt
-                std::cout << "Receipt:" << std::endl;
-                std::cout << "===========================" << std::endl;
-                std::cout << "Title: " << pCurr->title << std::endl;
-                std::cout << "Author: " << pCurr->author << std::endl;
-                std::cout << "ISBN: " << pCurr->ISBN << std::endl;
-                std::cout << "Price: RM" << fixed << setprecision(2) << pCurr->price << std::endl;
-                std::cout << "Quantity Sold: " << sellQuantity << std::endl;
-                std::cout << "Total: RM" << fixed << setprecision(2) << pCurr->price * sellQuantity << std::endl;
-                std::cout << "===========================" << std::endl;
-
-                std::cout << "\n\nPress any key back to the page." << std::endl;
-                _getch;
-                return;
-            }
-            else
-            {
-                std::cout << "Sale canceled..." << std::endl;
-                std::this_thread::sleep_for(chrono::milliseconds(500));
-                return;
-            }
-        }
-        pCurr = pCurr->next;
-
+    ofstream receiptFile("receipts.txt", ios::app);
+    if (!receiptFile) {
+        cerr << "Failed to open receipt file." << endl;
+        return;
     }
 
-    std::cout << "Book not found." << std::endl;
+    srand(static_cast<unsigned>(time(0))); // Seed random number generator
+    int receiptNumber = rand();
+
+    char sellMore;
+    do {
+        displayInventory();
+        std::cout << "\n\nPlease enter the title of the book you want to sell: ";
+        string target;
+        std::cin.ignore(); // To clear the newline character from the buffer
+        std::getline(cin, target);
+
+        NODE* pCurr = top;
+
+        while (pCurr && pCurr->title != target) {
+            pCurr = pCurr->next;
+        }
+
+        if (!pCurr) {
+            std::cout << "Book with title \"" << target << "\" not found.\n";
+            return;
+        }
+
+       std::cout << "Book found:\n";
+       std::cout << "Title: " << pCurr->title << "\n";
+       std::cout << "Author: " << pCurr->author << "\n";
+       std::cout << "ISBN: " << pCurr->ISBN << "\n";
+       std::cout << "Price: $" << fixed << setprecision(2) << pCurr->price << "\n";
+       std::cout << "Quantity: " << pCurr->quantity << "\n";
+
+        char confirm;
+       std::cout << "Do you want to sell this book? (Y/N): ";
+       std::cin >> confirm;
+
+        if (confirm == 'Y' || confirm == 'y') {
+            int sellQuantity;
+           std::cout << "Enter quantity to sell: ";
+           std::cin >> sellQuantity;
+
+            if (sellQuantity > pCurr->quantity) {
+               std::cout << "Not enough stock available.\n";
+                return;
+            }
+
+            pCurr->quantity -= sellQuantity;
+           std::cout << "Book sold!\n";
+
+            // Generate and save receipt
+            generateReceipt(pCurr, sellQuantity, receiptFile, receiptNumber);
+        }
+
+        else
+        {
+            std::cout << "Sale canceled..." << std::endl;
+            std::this_thread::sleep_for(chrono::milliseconds(500));
+            return;
+        }
+        
+
+       std::cout << "Do you want to sell another book? (Y/N): ";
+       std::cin >> sellMore;
+    }while(sellMore == 'Y' || sellMore == 'y');
+    receiptFile.close();
 }
+
+void sales() {
+    ifstream receiptFile("receipts.txt");
+    if (!receiptFile) {
+        std::cout << "Failed to open receipt file." << endl;
+        return;
+    }
+
+
+    string line;
+    while (getline(receiptFile, line)) {
+       std::cout << line << endl;
+    }
+
+    receiptFile.close();
+}
+
+
+    
+
+   
+
 
 string Book::toLowerCase(const string& str) {
     string lowerStr = str;
@@ -830,6 +847,16 @@ void Book::update()
     std::cout << "Book details updated successfully.\n";
 }
 
+void Book::generateReceipt(const NODE* book, int quantitySold, ofstream& receiptFile, int receiptNumber) {
+    receiptFile << "Receipt:\n";
+    receiptFile << "===========================\n";
+    receiptFile << "Receipt Number: " << receiptNumber << "\n";
+    receiptFile << "Title: " << book->title << "\n";
+    receiptFile << "Quantity Sold: " << quantitySold << "\n";
+    receiptFile << "Price per Book: $" << fixed << setprecision(2) << book->price << "\n";
+    receiptFile << "Total Price: $" << fixed << setprecision(2) << book->price * quantitySold << "\n";
+    receiptFile << "===========================\n";
+}
 
 
 
