@@ -12,22 +12,25 @@ class Book
 public:
     Book();
     ~Book();
+    void addBook();
+    void ascendingTitleInsertionSort();
+    void ascendingAuthorInsertionSort();
+    void deleteBook();
+    void descendingAuthorInsertionSort();
+    void descendingTitleInsertionSort();
+    void displayBookTable();
+    void displayInventory();
+    bool empty();
+    int getNumberOfBooks();
+    void inventoryMainPage();
+    void merchantMainPage();
     void searchBook();
     void push(string&, string&, string&, double&, int&);
     void pop();
-    void addBook();
-    void deleteBook();
-    //void modifyBook();
-    bool empty();
-    int getNumberOfBooks();
-    void displayInventory();
-    void ascendingTitleInsertionSort();
-    void descendingTitleInsertionSort();
-    void ascendingAuthorInsertionSort();
-    void descendingAuthorInsertionSort();
-    void insertionSort();
-    void updateBook();
     void sellBook();
+    string toLowerCase(const string& str);
+    string trim(const string& str);
+    void update();
 
 private:
     class NODE 
@@ -46,5 +49,4 @@ private:
     NODE* top;
     int numItem;
 };
-
 #endif

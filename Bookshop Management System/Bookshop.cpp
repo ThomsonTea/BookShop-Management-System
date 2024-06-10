@@ -1,18 +1,20 @@
 #include <iostream>
 #include <stdlib.h>
 #include <iomanip>
-
-#include "Inventory.h"
-#include "Merchant.h"
+#include <thread>
+#include <conio.h>
+#include "Book.h"
 using namespace std;
 
 int main()
 {
-    system("cls");
     bool quit = false;
+    Book book;
 
     do
     {
+        system("cls");
+
         char site;
         cout << "=========================================" << endl;
         cout << "       BOOK SHOP MANAGEMENT SYSTEM       " << endl;
@@ -27,15 +29,17 @@ int main()
 
         if (site == 'A' || site == 'a')
         {
-            cout << "Navigating to Merchant" << endl;
+            cout << "\nNavigating to Merchant..." << endl;
+            std::this_thread::sleep_for(chrono::milliseconds(500));
             system("cls");
-            merchantMainPage();
+            book.merchantMainPage();
         }
         else if (site == 'B' || site == 'b')
         {
-            cout << "Navigating to Inventory" << endl;
+            cout << "\nNavigating to Inventory..." << endl;
+            std::this_thread::sleep_for(chrono::milliseconds(500));
             system("cls");
-            inventoryMainPage();
+            book.inventoryMainPage();
         }
         else if (site == '0')
         {
@@ -50,13 +54,15 @@ int main()
             }
             else
             {
-                cout << "Returning ..." << endl;
+                cout << "\nExiting..." << endl;
+                std::this_thread::sleep_for(chrono::seconds(1));
                 system("cls");
             }
         }
         else
         {
             cout << "\nInvalid Input, please try again..." << endl;
+            std::this_thread::sleep_for(chrono::milliseconds(500));
             system("cls");
         }
     } while (!quit);

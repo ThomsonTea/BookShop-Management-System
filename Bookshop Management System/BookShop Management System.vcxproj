@@ -21,13 +21,9 @@
   <ItemGroup>
     <ClCompile Include="Book.cpp" />
     <ClCompile Include="Bookshop.cpp" />
-    <ClCompile Include="Inventory.cpp" />
-    <ClCompile Include="Merchant.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Book.h" />
-    <ClInclude Include="Merchant.h" />
-    <ClInclude Include="Inventory.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
