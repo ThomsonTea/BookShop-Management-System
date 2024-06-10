@@ -26,6 +26,7 @@ void inventoryMainPage()
         std::cout << "C. Edit Books                 " << std::endl;
         std::cout << "D. Delete Books               " << std::endl;
         std::cout << "E. Search for Books           " << std::endl;
+        std::cout << "F. Sell for Books           " << std::endl;
         std::cout << "0. Exit                       " << std::endl;
         std::cout << "==============================" << std::endl;
 
@@ -70,6 +71,10 @@ void inventoryMainPage()
                 } while (searchAgain);
             }
         break;
+        case 'f':
+        case 'F':
+            book.sellBook();
+            break;
 
         case '0':
             inventoryQuit = true;

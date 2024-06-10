@@ -592,15 +592,20 @@ void Book::updateBook()
 }
 
 void Book::sellBook() {
-    if (!top) {
-        cout << "The inventory is empty." << endl;
-        return;
-    }
+   system("cls");
+   
 
     NODE* pCurr = top;
+    /*if (pCurr == nullptr) {
+        std::cout << "The inventory is empty." << std::endl;
+        _getch();
+        return;
+    }*/
+
+   
     string searchTitle;
     cout << "Enter the title of the book to sell: ";
-    _getch();
+    
     // Clear the input buffer before reading
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
@@ -661,7 +666,7 @@ void Book::sellBook() {
             }
         }
         pCurr = pCurr->next;
-        _getch();
+        
     }
 
     cout << "Book not found." << endl;
