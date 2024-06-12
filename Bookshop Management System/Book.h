@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 #include <cstdlib>
+#include <fstream>
 
 
 using namespace std;
@@ -33,6 +34,8 @@ public:
     string trim(const string& str);
     void update();
     void sales();
+    void saveInventory();
+    void loadInventory();
  
     
     

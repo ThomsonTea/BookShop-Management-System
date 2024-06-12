@@ -8,6 +8,7 @@
 #include <fstream>
 #include <cstdlib> 
 #include <ctime>
+#include <sstream>
 #include "Book.h"
 
 
@@ -15,10 +16,12 @@ Book::Book()
 {
     top = nullptr;
     numItem = 0;
+    loadInventory();
 }
 
 Book::~Book()
 {
+    saveInventory();
 }
 
 void Book::addBook()
@@ -123,6 +126,7 @@ void Book::addBook()
             break;
         }
     } while (!endinsert);
+    saveInventory();
 }
 
 void Book::ascendingAuthorInsertionSort()
@@ -218,6 +222,7 @@ void Book::deleteBook()
     std::cout << "Book with title \"" << pCurr->title << "\" has been deleted.\n";
     delete pCurr;
     --numItem;
+    saveInventory();
 }
 
 void Book::descendingAuthorInsertionSort()
@@ -311,7 +316,7 @@ void Book::displayBookTable()
             << " | " << std::setw(28) << std::left << pCurr->title
             << " | " << std::setw(18) << std::left << pCurr->author
             << " | " << std::setw(13) << std::left << pCurr->ISBN
-            << " | " << std::setw(10) << std::left << std::setprecision(2) << pCurr->price
+            << " | " << std::setw(10) <<  std::fixed << std::setprecision(2) << pCurr->price
             << " | " << std::setw(8) << std::left << pCurr->quantity
             << " |" << std::endl;
         std::cout << "+-----+------------------------------+--------------------+---------------+------------+----------+" << std::endl;
@@ -570,6 +575,7 @@ void Book::merchantMainPage()
             std::cout << "\nNavigating to Sales..." << std::endl;
             std::this_thread::sleep_for(chrono::milliseconds(500));
             system("cls");
+            Book::sales();
             
             break;
         case '0':
@@ -597,6 +603,7 @@ void Book::push(string& bookTitle, string& bookAuthor, string& bookIsbn, double&
     top = newNode;
 
     numItem++;
+    saveInventory();
 }
 
 void Book::pop()
@@ -607,6 +614,7 @@ void Book::pop()
         top = top->next;
         delete temp;
         --numItem;
+        saveInventory();
     }
     else
     {
@@ -731,7 +739,7 @@ void Book::sellBook() {
             std::this_thread::sleep_for(chrono::milliseconds(500));
             return;
         }
-        
+        saveInventory();
 
        std::cout << "Do you want to sell another book? (Y/N): ";
        std::cin >> sellMore;
@@ -739,20 +747,28 @@ void Book::sellBook() {
     receiptFile.close();
 }
 
-void sales() {
+void Book::sales()
+{
     ifstream receiptFile("receipts.txt");
     if (!receiptFile) {
-        std::cout << "Failed to open receipt file." << endl;
+        cerr << "Failed to open receipt file." << endl;
         return;
     }
 
 
     string line;
     while (getline(receiptFile, line)) {
-       std::cout << line << endl;
+        cout << line << endl;
     }
 
     receiptFile.close();
+
+    cout << "Press 'm' to return to the main page or any other key to exit: ";
+    char choice;
+    cin >> choice;
+    if (choice == 'm' || choice == 'M') {
+        merchantMainPage();
+    }
 }
 
 
@@ -858,7 +874,47 @@ void Book::generateReceipt(const NODE* book, int quantitySold, ofstream& receipt
     receiptFile << "===========================\n";
 }
 
+void Book::saveInventory()
+{
+    ofstream outFile("inventory.txt");
+    if (!outFile) {
+        cerr << "Failed to open inventory file for saving." << endl;
+        return;
+    }
 
+    NODE* current = top;
+    while (current != nullptr) {
+        outFile << current->title << "," << current->author << "," << current->ISBN << ","
+            << fixed << setprecision(2) << current->price << "," << current->quantity << endl;
+        current = current->next;
+    }
+
+    outFile.close();
+}
+
+void Book::loadInventory()
+{
+    ifstream inFile("inventory.txt");
+    if (!inFile) {
+        cerr << "Failed to open inventory file for loading." << endl;
+        return;
+    }
+
+    string line;
+    while (getline(inFile, line)) {
+        istringstream iss(line);
+        string title, author, ISBN, priceStr, quantityStr;
+
+        if (getline(iss, title, ',') && getline(iss, author, ',') &&
+            getline(iss, ISBN, ',') && getline(iss, priceStr, ',') && getline(iss, quantityStr)) {
+            double price = stod(priceStr);
+            int quantity = stoi(quantityStr);
+            push(title, author, ISBN, price, quantity);
+        }
+    }
+
+    inFile.close();
+}
 
 
 

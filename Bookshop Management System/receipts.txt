@@ -22,3 +22,35 @@ Quantity Sold: 5
 Price per Book: $600.00
 Total Price: $3000.00
 ===========================
+Receipt:
+===========================
+Receipt Number: 1496
+Title: blop
+Quantity Sold: 5
+Price per Book: $123.00
+Total Price: $615.00
+===========================
+Receipt:
+===========================
+Receipt Number: 1650
+Title: harith
+Quantity Sold: 2
+Price per Book: $123.00
+Total Price: $246.00
+===========================
+Receipt:
+===========================
+Receipt Number: 4092
+Title: harith
+Quantity Sold: 5
+Price per Book: $123.00
+Total Price: $615.00
+===========================
+Receipt:
+===========================
+Receipt Number: 4092
+Title: sharizal
+Quantity Sold: 5
+Price per Book: $100.00
+Total Price: $500.00
+===========================
