@@ -44,18 +44,22 @@ int main()
         else if (site == '0')
         {
             string exitpass;
-            system("cls");
-            cout << "ARE YOU SURE?\n" << "PLEASE TYPE \"YES\" TO EXIT\n";
+            cout << "\n\nARE YOU SURE?\n" << "PLEASE TYPE \"YES\" TO EXIT:\n";
             cin >> exitpass;
 
             if (exitpass == "YES")
             {
                 quit = true;
+                cout << "\nExiting..." << endl;
+                std::this_thread::sleep_for(chrono::milliseconds(500));
+                system("cls");
+                cout << "THANK YOU SO MUCH!" << endl;
+                std::this_thread::sleep_for(chrono::seconds(1));
             }
             else
             {
-                cout << "\nExiting..." << endl;
-                std::this_thread::sleep_for(chrono::seconds(1));
+                cout << "\nExit key invalid, returning to main page..." << endl;
+                std::this_thread::sleep_for(chrono::milliseconds(500));
                 system("cls");
             }
         }

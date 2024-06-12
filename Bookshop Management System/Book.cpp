@@ -119,6 +119,7 @@ void Book::addBook()
             std::this_thread::sleep_for(std::chrono::milliseconds(500));
             std::cout << "Insert completed!" << std::endl;
             endinsert = true;
+            break;
         default:
             std::cout << "\nInvalid input, please try again..." << std::endl;
             std::this_thread::sleep_for(std::chrono::milliseconds(500));
@@ -205,6 +206,7 @@ void Book::deleteBook()
     if (pCurr == nullptr)
     {
         std::cout << "Book with title \"" << target << "\" not found.\n";
+        std::this_thread::sleep_for(chrono::milliseconds(500));
         return;
     }
 
@@ -220,6 +222,10 @@ void Book::deleteBook()
     }
 
     std::cout << "Book with title \"" << pCurr->title << "\" has been deleted.\n";
+    std::cout << "\Deleting..." << std::endl;
+    std::this_thread::sleep_for(chrono::milliseconds(500));
+    std::cout << "\Delete complete!" << std::endl;
+    std::this_thread::sleep_for(chrono::milliseconds(500));
     delete pCurr;
     --numItem;
     saveInventory();
@@ -297,34 +303,35 @@ void Book::displayBookTable()
         return;
     }
 
-    std::cout << "+-------------------------------------------------------------------------------------------------+" << std::endl;
-    std::cout << "|                                             INVENTORY                                           |" << std::endl;
-    std::cout << "+-----+------------------------------+--------------------+---------------+------------+----------+" << std::endl;
+    std::cout << "+------------------------------------------------------------------------------------------------------------------------------+" << std::endl;
+    std::cout << "|                                                      INVENTORY                                                               |" << std::endl;
+    std::cout << "+-----+-----------------------------------+----------------------------+-----------------------+----------------+--------------+" << std::endl;
     std::cout << "| " << std::setw(3) << std::left << "No"
-        << " | " << std::setw(28) << std::left << "Title"
-        << " | " << std::setw(18) << std::left << "Author"
-        << " | " << std::setw(13) << std::left << "ISBN"
-        << " | " << std::setw(10) << std::left << "Price (RM)"
-        << " | " << std::setw(8) << std::left << "Quantity"
+        << " | " << std::setw(33) << std::left << "Title"
+        << " | " << std::setw(26) << std::left << "Author"
+        << " | " << std::setw(21) << std::left << "ISBN"
+        << " | " << std::setw(14) << std::left << "Price (RM)"
+        << " | " << std::setw(12) << std::left << "Quantity"
         << " |" << std::endl;
-    std::cout << "+-----+------------------------------+--------------------+---------------+------------+----------+" << std::endl;
+    std::cout << "+-----+-----------------------------------+----------------------------+-----------------------+----------------+--------------+" << std::endl;
 
     int bookNumber = 1;
 
     while (pCurr != nullptr) {
         std::cout << "| " << std::setw(3) << std::left << bookNumber
-            << " | " << std::setw(28) << std::left << pCurr->title
-            << " | " << std::setw(18) << std::left << pCurr->author
-            << " | " << std::setw(13) << std::left << pCurr->ISBN
-            << " | " << std::setw(10) <<  std::fixed << std::setprecision(2) << pCurr->price
-            << " | " << std::setw(8) << std::left << pCurr->quantity
+            << " | " << std::setw(33) << std::left << pCurr->title
+            << " | " << std::setw(26) << std::left << pCurr->author
+            << " | " << std::setw(21) << std::left << pCurr->ISBN
+            << " | " << std::setw(14) << std::fixed << std::setprecision(2) << pCurr->price
+            << " | " << std::setw(12) << std::left << pCurr->quantity
             << " |" << std::endl;
-        std::cout << "+-----+------------------------------+--------------------+---------------+------------+----------+" << std::endl;
+        std::cout << "+-----+-----------------------------------+----------------------------+-----------------------+----------------+--------------+" << std::endl;
 
         pCurr = pCurr->next;
         bookNumber++;
     }
 }
+
 
 bool Book::empty()
 {
@@ -510,7 +517,6 @@ void Book::inventoryMainPage()
 
         case 'D':
         case 'd':
-
             Book::deleteBook();
             break;
         case 'E':
@@ -631,17 +637,19 @@ void Book::searchBook()
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');    // To clear the newline character from the buffer
     std::getline(std::cin, searchTitle);
     searchTitle = trim(searchTitle);
-    std::string searchTitleLower = toLowerCase(searchTitle); //toLowerCase for case insensitive
+    std::string searchTitleLower = toLowerCase(searchTitle); // toLowerCase for case insensitive
 
     bool found = false;
-    std::cout << "+------------------------------+--------------------+---------------+------------+----------+" << std::endl;
-    std::cout << "| " << std::setw(28) << std::left << "Title"
-        << " | " << std::setw(18) << std::left << "Author"
-        << " | " << std::setw(13) << std::left << "ISBN"
-        << " | " << std::setw(10) << std::left << "Price (RM)"
-        << " | " << std::setw(8) << std::left << "Quantity"
+    std::cout << "+------------------------------------------------------------------------------------------------------------------------------+" << std::endl;
+    std::cout << "|                                                      SEARCHING                                                               |" << std::endl;
+    std::cout << "+-----------------------------------------+----------------------------+-----------------------+----------------+--------------+" << std::endl;
+    std::cout << "| " << std::setw(33) << std::left << "Title"
+        << " | " << std::setw(26) << std::left << "Author"
+        << " | " << std::setw(21) << std::left << "ISBN"
+        << " | " << std::setw(14) << std::left << "Price (RM)"
+        << " | " << std::setw(12) << std::left << "Quantity"
         << " |" << std::endl;
-    std::cout << "+------------------------------+--------------------+---------------+------------+----------+" << std::endl;
+    std::cout << "+-----------------------------------------+----------------------------+-----------------------+----------------+--------------+" << std::endl;
 
     while (pCurr) {
         std::string storedTitleLower = toLowerCase(trim(pCurr->title));
@@ -649,17 +657,13 @@ void Book::searchBook()
         // Check if the searchTitleLower is a prefix of storedTitleLower
         if (storedTitleLower.find(searchTitleLower) == 0) {
             found = true;
-            std::cout << "| " << std::setw(28) << std::left << pCurr->title
-                << " | " << std::setw(18) << std::left << pCurr->author
-                << " | " << std::setw(13) << std::left << pCurr->ISBN
-                << " | " << std::setw(10) << std::left << std::fixed << std::setprecision(2) << pCurr->price
-                << " | " << std::setw(8) << std::left << pCurr->quantity
+            std::cout << "| " << std::setw(33) << std::left << pCurr->title
+                << " | " << std::setw(26) << std::left << pCurr->author
+                << " | " << std::setw(21) << std::left << pCurr->ISBN
+                << " | " << std::setw(14) << std::left << std::fixed << std::setprecision(2) << pCurr->price
+                << " | " << std::setw(12) << std::left << pCurr->quantity
                 << " |" << std::endl;
-            std::cout << "+------------------------------+--------------------+---------------+------------+----------+" << std::endl;
-            if (!found) {
-                std::cout << "Books found:" << std::endl;
-                std::cout << "===========================" << std::endl;
-            }
+            std::cout << "+------------------------------------------------------------------------------------------------------------------------------+" << std::endl;
         }
         pCurr = pCurr->next;
     }
@@ -667,6 +671,7 @@ void Book::searchBook()
         std::cout << "No books found with the given title prefix." << std::endl;
     }
 }
+
 
 void Book::sellBook() {
     system("cls");
@@ -679,16 +684,16 @@ void Book::sellBook() {
     }
     ofstream receiptFile("receipts.txt", ios::app);
     if (!receiptFile) {
-        cerr << "Failed to open receipt file." << endl;
+        std::cerr << "Failed to open receipt file." << endl;
         return;
     }
 
     srand(static_cast<unsigned>(time(0))); // Seed random number generator
     int receiptNumber = rand();
-
+    
     char sellMore;
     do {
-        displayInventory();
+        displayBookTable();
         std::cout << "\n\nPlease enter the title of the book you want to sell: ";
         string target;
         std::cin.ignore(); // To clear the newline character from the buffer
@@ -702,6 +707,7 @@ void Book::sellBook() {
 
         if (!pCurr) {
             std::cout << "Book with title \"" << target << "\" not found.\n";
+            std::this_thread::sleep_for(chrono::milliseconds(500));
             return;
         }
 
@@ -723,11 +729,15 @@ void Book::sellBook() {
 
             if (sellQuantity > pCurr->quantity) {
                std::cout << "Not enough stock available.\n";
+               std::this_thread::sleep_for(chrono::milliseconds(500));
                 return;
             }
 
             pCurr->quantity -= sellQuantity;
            std::cout << "Book sold!\n";
+           std::this_thread::sleep_for(chrono::milliseconds(500));
+           std::cout << "Thank you so Much!!!" << std::endl;
+           std::this_thread::sleep_for(chrono::milliseconds(500));
 
             // Generate and save receipt
             generateReceipt(pCurr, sellQuantity, receiptFile, receiptNumber);
@@ -758,24 +768,19 @@ void Book::sales()
 
     string line;
     while (getline(receiptFile, line)) {
-        cout << line << endl;
+        std::cout << line << endl;
     }
 
     receiptFile.close();
 
-    cout << "Press 'm' to return to the main page or any other key to exit: ";
+    std::cout << "Press 'm' to return to the main page or any other key to exit: ";
     char choice;
-    cin >> choice;
+    std::cin >> choice;
     if (choice == 'm' || choice == 'M') {
-        merchantMainPage();
+        std::cout << "Navigating back to Merchant site..." << std::endl;
+        std::this_thread::sleep_for(chrono::milliseconds(500));
     }
 }
-
-
-    
-
-   
-
 
 string Book::toLowerCase(const string& str) {
     string lowerStr = str;
@@ -915,7 +920,3 @@ void Book::loadInventory()
 
     inFile.close();
 }
-
-
-
-
