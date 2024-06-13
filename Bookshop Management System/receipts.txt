@@ -6,3 +6,27 @@ Quantity Sold: 2
 Price per Book: $5.00
 Total Price: $10.00
 ===========================
+Receipt:
+===========================
+Receipt Number: 2684
+Title: 4
+Quantity Sold: 2
+Price per Book: $4.00
+Total Price: $8.00
+===========================
+Receipt:
+===========================
+Receipt Number: 2971
+Title: To kill a Mockingbird
+Quantity Sold: 3
+Price per Book: $10.00
+Total Price: $30.00
+===========================
+Receipt:
+===========================
+Receipt Number: 4258
+Title: 2
+Quantity Sold: 2
+Price per Book: $2.00
+Total Price: $4.00
+===========================

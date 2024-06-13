@@ -655,7 +655,7 @@ void Book::searchBook()
         std::string storedTitleLower = toLowerCase(trim(pCurr->title));
 
         // Check if the searchTitleLower is a prefix of storedTitleLower
-        if (storedTitleLower.find(searchTitleLower) != std::string::npos) {
+        if (storedTitleLower.find(searchTitleLower) == 0) {
             found = true;
             std::cout << "| " << std::setw(33) << std::left << pCurr->title
                 << " | " << std::setw(26) << std::left << pCurr->author

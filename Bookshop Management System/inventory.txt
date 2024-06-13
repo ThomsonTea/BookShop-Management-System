@@ -1,3 +1,9 @@
-1984,George Orwell,978-0451524935,5.00,7
+1,1,1,1.00,1
+1988,George Orwell,978-0451524935,10.00,6
+2,2,2,2.00,0
+4,4,4,4.00,2
+Harry Potter,Zack,09830940384,199.00,800
+My Mom is Pretty,Harith,9820912934,75.00,50
 The Great Gatsby,F. Scott Fitzgerald,978-0743273565,8.00,10
-To kill a Mockingbird,Harper Lee,978-0061120084,10.00,7
+To kill a Mockingbird,Harper Lee,978-0061120084,10.00,4
+Up,Tee,87923432423,20.00,9
